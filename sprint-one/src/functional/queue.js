@@ -13,7 +13,7 @@ var Queue = function() {
 
   someInstance.dequeue = function() {
     size--;
-    return someInstance[size + 1];
+    return someInstance[size - (size - 1)];
   };
 
   someInstance.size = function() {
