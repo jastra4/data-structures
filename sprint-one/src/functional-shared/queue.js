@@ -5,10 +5,10 @@ var Queue = function() {
     back: 0,
     storage: {}
   };
-
-  queue.enqueue = queueMethods.enqueue;
-  queue.dequeue = queueMethods.dequeue;
-  queue.size = queueMethods.size;
+  _.extend(queue, queueMethods);
+  // queue.enqueue = queueMethods.enqueue;
+  // queue.dequeue = queueMethods.dequeue;
+  // queue.size = queueMethods.size;
 
   return queue;
 };
