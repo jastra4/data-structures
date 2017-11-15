@@ -20,7 +20,7 @@ var queueMethods = {
   },
   dequeue: function() {
     this.front = this.front + 1;
-    return this.front - 1;  
+    return this.storage[this.front - 1];  
   },
   size: function() {
     debugger;
@@ -32,9 +32,9 @@ var queueMethods = {
   }
 };
 
-var myObj = Queue();
+// var myObj = Queue();
 
-myObj.enqueue('a');
+// myObj.enqueue('a');
 
 // extending properties saves you from having to add each one individually.
 
