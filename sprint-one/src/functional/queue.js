@@ -6,13 +6,13 @@ var Queue = function() {
   var front = 0;
   var back = 0;
   someInstance.enqueue = function(value) { //add to end
-    someInstance[back] = value;
+    storage[back] = value;
     back++; 
   };
 
   someInstance.dequeue = function() { //remove from start
     front++;
-    return someInstance[front - 1];
+    return storage[front - 1];
   };
 
   someInstance.size = function() {
