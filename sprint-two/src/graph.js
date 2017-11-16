@@ -17,21 +17,28 @@ Graph.prototype.contains = function(node) {
   if (this.nodes[node]) {
     return true;
   } else {
-  	return false;
+    return false;
   }
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-  delete this.edges[node];
+  debugger;
+  for (var key in this.edges) {
+    if (this.edges[key] === node || key === node.toString()) {
+       delete this.edges[key];
+    }
+  }
+  //delete this.edges[node];
   delete this.nodes[node];
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
   //debugger;
-  if (this.edges[toNode] === fromNode && this.edges[fromNode] === toNode) {
-  	return true;
+  //if (this.edges[toNode] === fromNode && this.edges[fromNode] === toNode) {
+  if (this.edges[fromNode] === toNode) {
+    return true;
   }
   return false;
 };
@@ -48,17 +55,30 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 Graph.prototype.removeEdge = function(fromNode, toNode) {
   delete this.edges[fromNode];
   delete this.edges[toNode];
+  // for (var key in this.edges) {
+  //   if (this.edges[key] === node || key === node) {
+  //      delete this.edges[node];
+  //   }
+  // }
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+
+  //debugger;
   for (var key in this.nodes) {
-    _.each(this.nodes[key], cb);
+    cb(this.nodes[key]);
   }
 };
+
+// var graph = Graph();
+// graph.addNode(4);
+// graph.addNode(5);
+// graph.addEdge(4, 5);
+// graph.hasEdge(4, 5);
+// graph.removeNode(4, 5);
+// graph.hasEdge(4, 5);
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
