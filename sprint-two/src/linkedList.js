@@ -4,19 +4,37 @@ var LinkedList = function() {
   list.tail = null;
 
   list.addToTail = function(value) {
-    if (list.tail !== null) {
-      list.head = list.tail;
+    if (list.head !== null) { //if head not empty, start there
+      var currentNode = list.head;
+      while (currentNode.next) { //move over entire linked list
+        currentNode = currentNode.next;
+      }
+      list.tail = Node(value); //make new tail
+      currentNode.next = list.tail; //make last tail point to new tail
+    } else {
+      list.tail = Node(value); //make new tail
+      list.head = list.tail; //head and tail are the same in a linked list of 1
     }
-    list.tail = Node(value);
-
   };
 
   list.removeHead = function() {
-    delete list.head;
-    list.head = list.tail;
+    var temp = list.head;
+    list.head = list.head.next;
+    return temp.value;
   };
 
   list.contains = function(target) {
+    var currentNode = list.head;
+    while (currentNode.next) {
+      if (currentNode.value === target) {
+        return true;
+      }
+      currentNode = currentNode.next;
+    }
+    if (list.tail.value === target) {
+      return true;
+    }
+    return false;
   };
 
   return list;
