@@ -4,18 +4,18 @@ var Tree = function(value) {
 
   // your code here
   newTree.children = null;  // fix me
-
+  _.extend(newTree, treeMethods);
   return newTree;
 };
 
-var treeMethods = {};
+var treeMethods = {
+  addChild: function(value) {
 
-treeMethods.addChild = function(value) {
+  },
+  contains: function(target) {
+
+  }
 };
-
-treeMethods.contains = function(target) {
-};
-
 
 
 /*
