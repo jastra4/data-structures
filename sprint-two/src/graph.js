@@ -23,6 +23,7 @@ Graph.prototype.contains = function(node) {
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
+  
   delete this.nodes[node];
 };
 
@@ -45,10 +46,15 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
+  delete this.edges[fromNode];
+  delete this.edges[toNode];
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+  for (var key in this.nodes) {
+    _.each(this.nodes[key], cb);
+  }
 };
 
 /*
