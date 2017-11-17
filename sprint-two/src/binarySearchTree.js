@@ -1,8 +1,9 @@
 var BinarySearchTree = function(value) { //functional-shared
   var binaryTree = {};
-
-  binaryTree.right; // value of greater child
-  binaryTree.left; // value of lesser child
+  
+  binaryTree.value = value;
+  binaryTree.right = binaryTree.children[1]; // value of greater child
+  binaryTree.left = binaryTree.children[0]; // value of lesser child
   binaryTree.children = [];
   _.extend(binaryTree, binaryTreeMethods);
 
@@ -12,24 +13,25 @@ var BinarySearchTree = function(value) { //functional-shared
 var binaryTreeMethods = {
   insert: function(value) {
   	// right side
-    if (value > this) {  
+  	debugger;
+    if (value > this.value) {  
       if (this.right === undefined) {
         this.right === BinarySearchTree(value); // assignment
-      } else if (this.right > value) {
+      } else if (this.right.value > value) {
         var temp = this.right; 
-        this.right = value; // assignment
-        value.right = temp; 
+        this.right = BinarySearchTree(value); // assignment
+        this.right.right = temp; 
       } else {
       	this.right.insert(value); //recursion
       }
     // left side
-    } else if (value < this) { 
+    } else if (value < this.value) { 
       if (this.left === undefined) {
         this.left === BinarySearchTree(value); // assignment
-      } else if (this.left < value) {
+      } else if (this.left.value < value) {
         var temp = this.left;
-        this.left = value; // assignment
-        value.left = temp;
+        this.left = BinarySearchTree(value); // assignment
+        this.left.left = temp;
       } else {
       	this.left.insert(value); //recursion
       } 
@@ -39,8 +41,16 @@ var binaryTreeMethods = {
       return ;
     }
   },
-  contains: function() {
-
+  contains: function(value) {
+   if (value === this.value) {
+     return true;
+   } else if (value > this.value) {
+     contains(this.right);
+   } else if (value < this.value) {
+   	 contains(this.left) 
+   } else {
+   	 return false;
+   }
   },
   depthFirstLog: function() {
 
