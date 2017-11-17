@@ -37,4 +37,20 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
   });
+  it('should order letters as well as numbers', function() {
+    binarySearchTree = BinarySearchTree('d');
+    var array = [];
+    var func = function(value) { array.push(value); };
+    binarySearchTree.insert('b');
+    binarySearchTree.insert('f');
+    binarySearchTree.insert('a');
+    binarySearchTree.insert('c'); 
+    binarySearchTree.insert('e'); 
+    binarySearchTree.insert('g');
+    binarySearchTree.depthFirstLog(func);
+    expect(array).to.eql(['d', 'b', 'a', 'c', 'f', 'e', 'g']);
+  });
+  it('should return an error for inserting an invalid value', function() {
+    expect(binarySearchTree.insert('s')).to.eql('Error: invalid value');
+  });
 });
