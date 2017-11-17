@@ -9,8 +9,10 @@ var LinkedList = function() {
       while (currentNode.next) { //move over entire linked list
         currentNode = currentNode.next;
       }
+      //if (value === 6) {debugger}
       list.tail = Node(value); //make new tail
-      currentNode.next = list.tail; //make last tail point to new tail
+      currentNode.next = list.tail; //make previous node point to new tail
+      list.tail.previous = currentNode; //make tail point to previous node
     } else {
       list.tail = Node(value); //make new tail
       list.head = list.tail; //head and tail are the same in a linked list of 1
@@ -42,7 +44,8 @@ var LinkedList = function() {
 
 var Node = function(value) {
   var node = {};
-
+  
+  node.previous = null;
   node.value = value;
   node.next = null;
 
