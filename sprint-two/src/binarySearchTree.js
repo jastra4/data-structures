@@ -46,8 +46,15 @@ var binaryTreeMethods = {
    	 return false;
    }
   },
-  depthFirstLog: function() {
-
+  depthFirstLog: function(cb) {
+  	//debugger;
+    cb(this.value);
+    if (this.left !== null) {
+      this.left.depthFirstLog(cb); 	
+    }
+    if (this.right !== null) {
+      this.right.depthFirstLog(cb);
+    }
   }
 };
 
