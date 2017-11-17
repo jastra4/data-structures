@@ -14,17 +14,20 @@ var treeMethods = {
     this.children[this.children.length] = Tree(value);
   },
   contains: function(target) {
-  	debugger;
     if (this.value === target) {
       return true;
     } 
-	for (var i = 0; i < this.children.length; i++) {
-	  var test =  this.children[i].contains(target);
-	  if (test === true) {
-	  	return true;
+	  for (var i = 0; i < this.children.length; i++) {
+	    var test =  this.children[i].contains(target);
+	    if (test === true) {
+	  	  return true;
+	    }
 	  }
-	}
     return false;
+  },
+  removeChild: function(targetLevel, targetIndex) {
+    //debugger;
+    targetLevel.splice(targetIndex,1); //only removes from first tier
   }
 };
 
