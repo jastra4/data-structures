@@ -25,6 +25,10 @@ HashTable.prototype.retrieve = function(k) {
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   this._storage.set(index, [] )
+  this.resizeTracker.pop(index);
+  if (this.resizeTracker.length < (.25 * this._limit) && this.resizeTracker.length > 1) {
+    this.halve(this); // resizes hashTable
+  }
 };
 
 HashTable.prototype.double = function(hashTable) {
@@ -54,11 +58,46 @@ HashTable.prototype.double = function(hashTable) {
       bucket = [];
     }
   });
-  
+
   // repopulates hashTable
   for (var i = 0; i < allTuples.length; i++) {
     hashTable.insert(allTuples[i][0], allTuples[i][1]);
   }
+};
+
+HashTable.prototype.halve = function(hashTable) {
+  var tempTable = hashTable;
+  var allTuples = [];
+
+  // stores old tuples
+  tempTable._storage.each(function(bucket, index) { //_storage = hashArray, element = mapArray
+    if (bucket !== undefined) {
+      for (var i = 0; i < bucket.length; i++) {
+        var tupleArray = [];
+        tupleArray.push(bucket[i][0]);
+        tupleArray.push(tempTable.retrieve(bucket[i][0]));
+        allTuples.push(tupleArray);
+      }
+    }
+  }); 
+
+  // modifies hashTable
+  hashTable._limit = (tempTable._limit / 2);
+  hashTable._storage = LimitedArray(hashTable._limit);
+  hashTable.resizeTracker = [];
+
+  // wipes old tuples
+  hashTable._storage.each(function(bucket, index, hashTable) {
+    if (bucket !== undefined) {
+      bucket = [];
+    }
+  });
+
+  // repopulates hashTable
+  for (var i = 0; i < allTuples.length; i++) {
+    hashTable.insert(allTuples[i][0], allTuples[i][1]);
+  }
+  console.log(hashTable);
 };
 
 /*
